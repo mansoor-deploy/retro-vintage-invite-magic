@@ -9,7 +9,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const VideoMessage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
-  const [isAtBottom, setIsAtBottom] = useState(false);
   const [hasBeenSeen, setHasBeenSeen] = useState(false);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
@@ -19,7 +18,6 @@ const VideoMessage = () => {
       const scrollPosition = window.scrollY + window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const isBottom = scrollPosition > documentHeight - 100;
-      setIsAtBottom(isBottom);
 
       // Mark as seen the first time it becomes visible
       if (isBottom && !hasBeenSeen) {
@@ -46,19 +44,21 @@ const VideoMessage = () => {
 
   return (
     <>
-      {(isAtBottom || hasBeenOpened) && (
+      {hasBeenSeen && (
         <div 
           className={cn(
             "video-bubble transition-all duration-500",
             hasBeenOpened && !isVisible ? "opacity-60 hover:opacity-100" : "",
-            !hasBeenSeen && isAtBottom ? "animate-scale-up" : "",
-            hasBeenSeen && !hasBeenOpened ? "animate-bounce-subtle" : ""
+            !hasBeenOpened && hasBeenSeen ? "animate-scale-up" : "",
+            "transform translate-x-1/2"
           )}
           onClick={openVideo}
           style={{ 
-            left: isMobile ? '16px' : '32px',
+            left: isMobile ? '0' : '0',
             bottom: isMobile ? '16px' : '32px',
-            opacity: hasBeenOpened && !isVisible ? 0.6 : 1
+            opacity: hasBeenOpened && !isVisible ? 0.6 : 1,
+            position: 'fixed',
+            zIndex: 50
           }}
         >
           <Video size={24} />

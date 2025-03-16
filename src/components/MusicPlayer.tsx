@@ -67,7 +67,7 @@ const MusicPlayer = () => {
   };
 
   return (
-    <div className={`fixed ${isMobile ? 'bottom-4 right-4' : 'bottom-6 right-6'} z-50`}>
+    <div className="fixed bottom-6 right-6 z-50">
       <button
         onClick={togglePlay}
         className="glass-morphism rounded-full p-3 text-retro-magenta transition-all duration-300 hover:scale-105"

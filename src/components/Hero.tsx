@@ -92,7 +92,7 @@ const Hero = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-retro-navy hover:text-retro-magenta transition-colors animate-bounce-subtle"
         aria-label="Scroll to countdown"
       >
-        <ArrowDown size={32} />
+        <ArrowDown size={32} className="mx-auto" />
       </button>
     </section>
   );

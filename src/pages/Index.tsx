@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Countdown from '@/components/Countdown';
@@ -9,9 +9,12 @@ import RSVP from '@/components/RSVP';
 import Footer from '@/components/Footer';
 import MusicPlayer from '@/components/MusicPlayer';
 import VideoMessage from '@/components/VideoMessage';
+import Loader from '@/components/Loader';
 import { useIntersectionObserver } from '@/lib/animations';
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     // Set up intersection observer for fade-in animations
     const observer = new IntersectionObserver((entries) => {
@@ -48,6 +51,14 @@ const Index = () => {
       });
     };
   }, []);
+
+  const handleLoadComplete = () => {
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return <Loader onLoadComplete={handleLoadComplete} />;
+  }
 
   return (
     <div className="min-h-screen bg-retro-cream">
